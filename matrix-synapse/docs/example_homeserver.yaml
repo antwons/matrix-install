@@ -1,0 +1,99 @@
+server_name: "domain.com" #This is your top level domain name
+pid_file: /data/homeserver.pid
+public_baseurl: "https://subdomain.domain.com/" #We need this in order for OAUTH to work
+listeners:
+  - port: 8448
+    type: http
+    tls: false
+    resouces:
+      - names: [client,federation]
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+#You do not need to federate, if you do not have any other servers to federate with.
+#If you don't want to use this, just comment it out.
+#federation_domain_whitelist:
+#  - domain.net
+# - subdomain.domain.net
+database:
+  name: psycopg2
+  args:
+    user: matrix
+    password: PSQL PASSWORD #This is the password we set up earlier in postgresql
+    database: matrix
+    host: server IP address #This is the IP address of the server your postgreql container is at
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+log_config: "/data/subdomain.domain.com.log.config"
+media_store_path: /data/media_store
+turn_shared_secret: "32 character hex code change"
+enable_registration: true
+enable_registration_without_verification: true
+#registrations_require_3pid:
+#  - email
+registration_shared_secret: "32 characater hex code change"
+enable_set_displayname: true
+#The following is to ensure that when a new user joins, they automatically join home chat!
+#auto_join_rooms:
+#  - "#home:domain.com"
+autocreate_auto_join_rooms: true
+report_stats: false
+account_validity:
+  enabled: true
+  period: 12w
+  renew_at: 1w
+  renew_email_subject: "Renew your %(app)s account"
+macaroon_secret_key: "32 character hex code change"
+form_secret: "32 character hex code CHANGE"
+signing_key_path: "/data/subdomain.domain.com.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"
+suppress_key_server_warning: true
+#For more information on how to set up OIDC go to the following site https://matrix-org.github.io/synapse/latest/openid.html#google
+#If you do not want OIDC set up, just comment the following out
+#oidc_providers:
+#  - idp_id: google
+#    idp_name: Google
+#    idp_brand: "google"
+#    issuer: "https://accounts.google.com/"
+#    client_id: "INSERT CLIENT ID"
+#    client_secret: "INSERT CLIENT SECRET"
+#    scopes: ["openid", "profile", "email"]
+#    user_mapping_provider:
+#      config:
+#        localpart_template: "{{ user.name }}"
+#        display_name_template: "{{ user.given_name|lower }}"
+#        email_template: "{{ user.email }}"
+#For more information on how to set up SMTP go to https://support.cloudways.com/en/articles/5131076-how-to-configure-gmail-smtp
+#Follow steps 1-3 as it shows you how to get the information needed below
+#email:
+#  smtp_host: smtp.gmail.com
+#  smtp_port: 587
+#  smtp_user: "username@domain.com"
+#  smtp_pass: "password"
+#  require_transport_security: true
+#  notif_from: "%(app)s <user@domain.com>"
+#  app_name: "Matrix Chat"
+#  enable_notifs: true
+#  invite_client_location: https://subdomain.domain.com
+#subjects:
+#  message_from_person_in_room: "[%(app)s] You have a message on %(app)s from %(person)s in the %(room)s room..."
+#  message_from_person: "[%(app)s] You have a message on %(app)s from %(person)s..."
+#  messages_from_person: "[%(app)s] You have messages on %(app)s from %(person)s..."
+#  messages_in_room: "[%(app)s] You have messages on %(app)s in the %(room)s room..."
+#  messages_in_room_and_others: "[%(app)s] You have messages on %(app)s in the %(room)s room and others..."
+#  messages_from_person_and_others: "[%(app)s] You have messages on %(app)s from %(person)s and others..."
+#  invite_from_person_to_room: "[%(app)s] %(person)s has invited you to join the %(room)s room on %(app)s..."
+#  invite_from_person: "[%(app)s] %(person)s has invited you to chat on %(app)s..."
+#  password_reset: "[%(server_name)s] Password reset"
+#  email_validation: "[%(server_name)s] Validate your email"
+#server_notices:
+# system_mxid_localpart: notices
+# system_mxid_display_name: "Server Notices"
+# system_mxid_avatar_url: "mxc://server.com/oumMVlgDnLYFaPVkExemNVVZ"
+# room_name: "Server Notices"
