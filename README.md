@@ -13,7 +13,7 @@
 
 #### Run Command
 ```
-bash -c "(wget -qLO - https://git.antwons.com/anthony/Matrix-Synapse/raw/branch/v2.0/build.sh)"
+bash -c "(wget -qLO - https://raw.githubusercontent.com/antwons/matrix-install/main/build.sh))"
 ```
 *What does this command do?*
 > We will break this down, step by step. First, we are going to install git to be able to clone the repository. Second, we clone the main branch repository. Third, we are going to make the build.sh script executable. Lastly, we then run the build.sh script!
