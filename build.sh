@@ -5,7 +5,7 @@
 
 #Part 1 - A friendly start
 clear
-echo "Hello, welcome to the Server-Boyz Matrix install script"
+echo "Welome to Antwons Matrix Install script!"
 sleep 2
 clear
 echo "In this script we are going to install a few things. So please read all prompts completely."
@@ -78,12 +78,12 @@ if [ "$install_portainer" == "y" ]; then
     elif [ "$install_type" == "portainer-agent" ]; then
         install_portainer_agent
     else
-        echo "You obviously don't read or follow directions do you? I'm gone!"
+        echo "The Option you selected was incorrect. Please run this script again."
         sleep 2
         exit 1
     fi
 else
-    echo "No you don't want portainer? OKAY THEN, I GUESS IT'S FINE! Continuing with the script..."
+    echo "You've opted out of downloading Portainer. Continuing with the script."
     sleep 2
 fi
 
@@ -112,7 +112,7 @@ clear
 echo "Now we are going to install Matrix, please hold!"
 sleep 2
 clear
- read -p "Enter the domain name for matrix: " domain
+ read -p "Enter the fully qualified domain name (FQDN) for matrix: " domain
 echo
 sudo docker run -it --rm \
 --mount type=volume,src=synapse-data,dst=/data \
@@ -262,7 +262,7 @@ echo
 echo "your homeserver domain is https://$subdomain.$domain & your IP is $local_ip"
 sleep 2
 echo
-echo "Thank you for using the Server-Boyz Matrix - Synapse isntall. If you have any questions, please submit an issue regarding it and we will reach out!"
+echo "Thank you for using our script!"
 sleep 2
 
 #END OF SCRIPT 
