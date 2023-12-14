@@ -1,4 +1,4 @@
-<img src="https://git.antwons.com/anthony/Matrix-Synapse/raw/branch/v2.0/docs/matrix_antwons.png">
+<img src="https://github.com/antwons/matrix-install/blob/main/docs/design-36d1c79c-78fa-4f36-b55e-0a24af1eace5%20(3).png">
 
 ### MATRIX - SYNAPSE INSTALL 
 
