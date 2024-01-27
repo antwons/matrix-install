@@ -21,70 +21,7 @@ read -p "Do you want to install Docker? (y/n): " answer
 
 if [ "$answer" == "y" ] || [ "$answer" == "Y" ]; then
     # We will update our repositories and get certificaties and GPG keys needed
-    sudo apt-get update
-    sudo apt-get install -y ca-certificates curl gnupg
-    sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-    # Add the repository to Apt sources:
-    echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-     $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-     tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-    
-    # beign installing docker & docker compose 
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    clear
-    sleep 3
-    echo "Docker has been successfully installed."
-    sleep 3
-fi
-
-clear
-sleep 1
-
-#Now we are going to ask if the user wants to install portainer
-# Function to install portainer CE
-install_portainer_ce() {
-    echo "Installing Portainer-CE..."
-    sleep 2
-    sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-    sleep 2
-    clear
-    echo "Portainer-CE installed successfully!"
-    sleep 2
-}
-
-# Function to install Portainer Agent
-install_portainer_agent() {
-    echo "Installing Portainer Agent..."
-    sleep 2
-    sudo docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent:latest
-    sleep 2
-    clear
-    echo "Portainer Agent installed successfully!"
-    sleep 2
-}
-
-read -p "Do you want to install Portainer? (y/n): " install_portainer
-
-if [ "$install_portainer" == "y" ]; then
-    read -p "Do you want to install Portainer-CE or Portainer Agent? (portainer-ce/portainer-agent): " install_type
-
-    if [ "$install_type" == "portainer-ce" ]; then
-        install_portainer_ce
-    elif [ "$install_type" == "portainer-agent" ]; then
-        install_portainer_agent
-    else
-        echo "The Option you selected was incorrect. Please run this script again."
-        sleep 2
-        exit 1
-    fi
-else
-    echo "You've opted out of downloading Portainer. Continuing with the script."
-    sleep 2
+    apt install sudo && sudo apt install git -y && sudo git clone https://github.com/antwons/Docker-Install.git && cd Docker-Install/scripts && bash menu.sh
 fi
 
 #Now that Docker is installed and portainer is installed, we wil continue with running the docker for Matrix
